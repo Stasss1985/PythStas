@@ -19,7 +19,8 @@ imputPassword.send_keys('DLNKsfd3214$%23')
 
 imputButton = browser.find_element(By.CLASS_NAME, 'btn.btn-primary')
 imputButton.click()
-# Ожидание до 5 секунд, пока кнопка "Сменить" станет доступной.
+
+time.sleep(3)  # Ожидание до 5 секунд, пока кнопка "Сменить" станет доступной.
 WebDriverWait(browser, 10).until(
     EC.text_to_be_present_in_element((By.TAG_NAME, 'body'), 'Сменить'))
 
@@ -33,6 +34,48 @@ input_fild.click()
 input_fild2 = WebDriverWait(browser, 10).until(
     EC.element_to_be_clickable((By.CSS_SELECTOR, '[aria-label="Краснодар-1-го Мая ЛОМБАРД (Карман)"]')))
 input_fild2.click()
+
+lead_href = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, '[href="/lead"]')))
+lead_href.click()
+time.sleep(3)
+lead_create_grin = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, '[href = "/lead/create"]')))
+lead_create_grin.click()
+
+WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.ID, 'counteragentId')))
+
+counteragent_choose2 = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.ID, 'counteragentId')))
+counteragent_choose2.click()
+
+counteragent_choose2 = browser.find_element(
+    By.CSS_SELECTOR, '[aria-controls="counteragentId_list"]')
+counteragent_choose2.send_keys('Кривко С.Ю.')
+
+counteragent_choose2 = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, '[aria-label="Кривко С.Ю."]')))
+counteragent_choose2.click()
+
+counteragent_check_btn = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, '[aria-label="Проверить"]')))
+counteragent_check_btn.click()
+
+WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.ID, 'isTypeTrue')))
+
+pasport_checkboxs = browser.find_elements(By.CLASS_NAME, 'p-checkbox-box')
+checkbox1 = (pasport_checkboxs[0]).click()
+checkbox2 = (pasport_checkboxs[1]).click()
+checkbox3 = (pasport_checkboxs[2]).click()
+checkbox4 = (pasport_checkboxs[3]).click()
+checkbox5 = (pasport_checkboxs[4]).click()
+
+
+time.sleep(7)
+browser.quit()  # Закрываем браузер
+
 # input_fild2 = browser.find_element(
 #    By.CSS_SELECTOR, '[aria-label="Краснодар-1-го Мая ЛОМБАРД (Карман)"]')
 
@@ -51,27 +94,3 @@ input_fild2.click()
 #    By.XPATH, '//*[@id="leftside-menu-container"]/div[1]/div[2]/div/div/div/ul/li[2]/a')
 # lead_href.click()
 # time.sleep(10)
-
-lead_href = WebDriverWait(browser, 10).until(
-    EC.element_to_be_clickable((By.CSS_SELECTOR, '[href="/lead"]')))
-lead_href.click()
-
-lead_create_grin = WebDriverWait(browser, 10).until(
-    EC.element_to_be_clickable((By.CSS_SELECTOR, '[href = "/lead/create"]')))
-lead_create_grin.click()
-
-counteragent_choose = WebDriverWait(browser, 10).until(
-    EC.element_to_be_clickable((By.ID, 'counteragentId')))
-counteragent_choose.click()
-
-counteragent_choose2 = browser.find_element(
-    By.CSS_SELECTOR, '[aria-controls="counteragentId_list"]')
-counteragent_choose2.send_keys('Кривко С.Ю.')
-
-counteragent_choose2 = WebDriverWait(browser, 10).until(
-    EC.element_to_be_clickable((By.CSS_SELECTOR, '[aria-label="Кривко С.Ю."]')))
-counteragent_choose2.click()
-
-
-time.sleep(7)
-browser.quit()  # Закрываем браузер
