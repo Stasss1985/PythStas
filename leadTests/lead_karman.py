@@ -3,11 +3,14 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 
 browser = webdriver.Chrome()
 browser.get('https://erp-test.karman24.ru/')
+browser.execute_script("document.body.style.fontSize = '80%';")
 browser.maximize_window()
+
 WebDriverWait(browser, 10).until(
     EC.element_to_be_clickable((By.CLASS_NAME, 'btn.btn-primary'))
 )
@@ -35,18 +38,23 @@ input_fild2 = WebDriverWait(browser, 10).until(
     EC.element_to_be_clickable((By.CSS_SELECTOR, '[aria-label="Краснодар-1-го Мая ЛОМБАРД (Карман)"]')))
 input_fild2.click()
 
-lead_href = WebDriverWait(browser, 10).until(
+lead_href = WebDriverWait(browser, 20).until(
     EC.element_to_be_clickable((By.CSS_SELECTOR, '[href="/lead"]')))
 lead_href.click()
-time.sleep(3)
-lead_create_grin = WebDriverWait(browser, 10).until(
-    EC.element_to_be_clickable((By.CSS_SELECTOR, '[href = "/lead/create"]')))
+
+# until(EC.visibility_of_element_located((By.CSS_SELECTOR, "element_css"))).get_attribute("value")
+
+WebDriverWait(browser, 20).until(EC.visibility_of_element_located(
+    (By.CLASS_NAME, 'dropdown.notification-list.d-none.d-lg-block')))
+
+lead_create_grin = WebDriverWait(browser, 20).until(
+    EC.element_to_be_clickable((By.CLASS_NAME, 'p-button-icon.pi.pi-plus')))
 lead_create_grin.click()
 
-WebDriverWait(browser, 10).until(
-    EC.element_to_be_clickable((By.ID, 'counteragentId')))
+WebDriverWait(browser, 20).until(EC.visibility_of_element_located(
+    (By.CLASS_NAME, 'dropdown.notification-list.d-none.d-lg-block')))
 
-counteragent_choose2 = WebDriverWait(browser, 10).until(
+counteragent_choose2 = WebDriverWait(browser, 20).until(
     EC.element_to_be_clickable((By.ID, 'counteragentId')))
 counteragent_choose2.click()
 
@@ -72,25 +80,17 @@ checkbox3 = (pasport_checkboxs[2]).click()
 checkbox4 = (pasport_checkboxs[3]).click()
 checkbox5 = (pasport_checkboxs[4]).click()
 
+pasport_confirm = WebDriverWait(browser, 20).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, '[aria-label="Далее"]')))
+pasport_confirm.click()
+
+sourceId_chose = WebDriverWait(browser, 20).until(
+    EC.element_to_be_clickable((By.ID, 'sourceId')))
+sourceId_chose.click()
+
+sourceId_find = browser.find_elements(By.CLASS_NAME, 'sourceId')
+sourceId_chose1 = (sourceId_find[0]).click()
+
 
 time.sleep(7)
-browser.quit()  # Закрываем браузер
-
-# input_fild2 = browser.find_element(
-#    By.CSS_SELECTOR, '[aria-label="Краснодар-1-го Мая ЛОМБАРД (Карман)"]')
-
-# input_fild2 = browser.find_element(
-#    By.XPATH, '/html/body/div[2]/div/div[2]/div/div[2]/ul/li[10]/ul/li[10]/div/span[2]')
-# time.sleep(5)
-# time.sleep(10)
-# WebDriverWait(browser, 10).until(
-#    EC.text_to_be_present_in_element((By.TAG_NAME, 'body'), 'Лиды'))
-# lead_href = browser.find_element(By.CSS_SELECTOR, '[href="/lead"]')
-# lead_href.click()
-# href = "/lead/create"
-
-
-# lead_href = browser.find_element(
-#    By.XPATH, '//*[@id="leftside-menu-container"]/div[1]/div[2]/div/div/div/ul/li[2]/a')
-# lead_href.click()
-# time.sleep(10)
+browser.quit()
